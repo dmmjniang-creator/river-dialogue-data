@@ -90,28 +90,24 @@
 
 ## 许可（License）
 
-**本仓库用自定义许可（不是 CC）。** 全文见 `LICENSE.md`，这里只放摘要，方便一眼看懂。
+**文字与图片：CC BY-NC 4.0（署名—非商业性使用 4.0 国际）。全文见 `LICENSE-CC-BY-NC-4.0.txt`。**
 
-**一句话**：可以看、可以改、可以发你改过的版本——**不能原样转载**，也不能拿原版（或只换了名字的版本）去卖钱。
+**一句话**：可以看、可以改、**可以转载（原样也行）**——只要署名、说清改没改、别拿去商用。
 
 | | 原版 | 改过的版本 |
 | --- | --- | --- |
-| 能不能发布 | **不能原样发** | 能 |
-| 要写什么 | — | 作者 + 仓库链接 + 首次公开时间 + **改了什么** |
+| 能不能转载 | **能**（署名） | 能（署名 + 说明改了什么） |
+| 要写什么 | 作者 + 仓库链接 + 许可 | 作者 + 仓库链接 + 许可 + **改了什么** |
 | 能不能卖 | 不能 | 不能——除非做出了实质新功能（见下） |
 | 能不能加更严的限制 | — | 不能 |
 
-> **为什么禁止原样发布**：这套东西要的是「这个时间、这个用户先分享了这个思路」的记录。整篇搬走，记录就散了。要传播请发你改过的版本，把改动写清楚。
-
-**Fork 的问题**：GitHub 的 Fork 就是原样复制，所以**不在本许可授权范围内**。要改，请另建仓库，在 README 里写清改动和来源。
-
-**允许的例外**：评论、教学、报道可以**摘录段落**并注明出处；整篇搬运不行。
+**转载、引用时请顺手带上首次公开信息**：作者 `dmmjniang-creator`，首次公开 2026-11-03。这是请求，不是许可条款——但它是「谁先做的」最直接的那一行。
 
 ### 什么算「实质新功能」
 
 别人问你一句「这一版和原来差在哪」，你**答得出来**，就算；答不出来，就只是换了个名字。
 
-做出实质新功能的那一版，**可以商用**——条件就是上面那张表里的「要写什么」，一条不能少。
+做出实质新功能的那一版，**可以商用**，条件是：保留署名和仓库链接、在显著位置说明改了什么、不能假装是原创。这是作者在 CC BY-NC 之外**单独给的许可**，不改变原协议的效力；两者冲突时按对使用者更宽松的那条理解。
 
 **协议管不到的地方**：版权管的是**文字、图、代码的表达**，管不住「思路」。任何人读懂原理、用自己的话重写一遍，协议拦不住。这条先说明白，免得以为有个开关。
 
@@ -136,7 +132,7 @@ Copyright (c) 2026 `dmmjniang-creator`。
 | 仓库历史 | 完整保留，未 squash |
 
 - **协议保护表达，不保护思路。** 文字、图、代码受 `LICENSE.md` 约束；「三层结构 / 三句验收 / 不删只打标」这些**做法本身**，协议管不到——有人看懂了、用自己的话重写一遍，不算侵权。这条写在这里，是让双方预期一致。
-- 引用或再发布，请保留：作者名 + 仓库链接 + 首次公开日期；**并且只能发你改过的版本**（原样转载不在授权范围内）。
+- 引用或再发布，请保留：作者名 + 仓库链接 + 首次公开日期。原样转载可以，改了也要说清改了什么。
 - 如果发现别人整段搬运文字或图：对照本仓库的时间戳和提交记录，公开比对即可。
 
 **English:** First published 2026-11-03, on DeepSeek Harness with DeepSeek-V4.1-Flash 1017 (reasoning effort: High). Sharing the idea so others can reproduce and improve it; the claim is priority (who shared it, when) — not exclusivity. The license covers the text, images and code — not the underlying methods.
@@ -157,4 +153,4 @@ Copyright (c) 2026 `dmmjniang-creator`。
 
 **Scope:** tested on **one model only** — DeepSeek-V4.1-Flash 1017 (reasoning effort: High). Other models and versions are untested. The design uses the model's own keywords as the interface, so a different model may not connect.
 
-Licensed under a **custom license** (see `LICENSE.md`) — not CC. You may read, run, modify, and publish **your modified version**, but not the unmodified material. Any publication must credit `dmmjniang-creator`, link this repository, state the first-publication date 2026-11-03, and describe your changes. A version with substantive new functionality may be used commercially under the same conditions.
+Licensed under **CC BY-NC 4.0** for text and images: you may copy, modify, and republish (including verbatim) with attribution; commercial use is not allowed. **Additional permission:** a version with substantive new functionality may be used commercially, provided attribution and a clear note of what changed. Please also state the first-publication date (2026-11-03) — a request, not a license term.
