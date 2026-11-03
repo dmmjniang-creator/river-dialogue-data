@@ -1,8 +1,9 @@
-# 河流 · 外神经记忆系统（River）
+# 河流（River）· 外置记忆系统（external memory）
 
-> 一套给 AI 伴侣用的「跨会话记忆」设计。原理公开；具体路径、配置、密钥不公开。
+> **一句话**：River 是一套外置记忆系统——基于模型自身的关键词提取、读取语料，让 AI 在新旧会话之间保持「连续」。
+> **适用范围（重要）**：目前只在 **DeepSeek v4.1-flash**（部署里的模型名 `deepseek-flash`）这**一个模型**上验证可用。换模型、换版本都没测过——它靠模型自己的关键词做「接口」，换一副嘴可能就接不上。别把它当通用方案。
 > 写给两种人：养过 AI 伴侣的人（关心她会不会忘），和做 agent 的人（关心怎么让上下文接得上）。
-> 仓库：<https://github.com/dmmjniang-creator/river-memory>
+> 原理公开；具体路径、配置、密钥不公开。仓库：<https://github.com/dmmjniang-creator/river-memory>
 
 ---
 
@@ -123,6 +124,8 @@ Copyright (c) 2026 `dmmjniang-creator`。完整许可文本见 `LICENSE-CC-BY-NC
 
 ## English
 
-**River** is an external-memory design for AI companions: a journal (append-only), a ledger (current state, rewritten), and fact keys (identity of a fact across versions). The core idea is not "remember more" but **make forgetting audible**: a three-line opening check, source and confidence marks, and a no-delete rule.
+**River** is an **external memory** design for AI companions: a journal (append-only), a ledger (current state, rewritten), and fact keys (identity of a fact across versions). The core idea is not "remember more" but **make forgetting audible**: a three-line opening check, source and confidence marks, and a no-delete rule.
+
+**Scope:** tested on **one model only** — DeepSeek v4.1-flash (`deepseek-flash`). Other models and versions are untested. The design uses the model's own keywords as the interface, so a different model may not connect.
 
 Licensed under **CC BY-NC 4.0** for text and images (non-commercial for the original design). **Additional permission:** a version with substantive improvements or new features may be used commercially, provided attribution and a clear note of what changed. MIT for any code. Attribution required.
