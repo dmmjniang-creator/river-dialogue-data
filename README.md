@@ -157,4 +157,4 @@ Copyright (c) 2026 `dmmjniang-creator`。
 
 **Scope:** tested on **one model only** — DeepSeek-V4.1-Flash 1017 (reasoning effort: High). Other models and versions are untested. The design uses the model's own keywords as the interface, so a different model may not connect.
 
-Licensed under a **custom license** (see `LICENSE.md`) — not CC. You may read, run, modify, and publish **your modified version**, but not the unmodified material. Any publication must credit `dmmjniang-creator`, link this repository, state the first-publication date 2026-11-03, and describe your changes. A version with substantive new functionality may be used commercially under the same conditions. MIT for any code.
+Licensed under a **custom license** (see `LICENSE.md`) — not CC. You may read, run, modify, and publish **your modified version**, but not the unmodified material. Any publication must credit `dmmjniang-creator`, link this repository, state the first-publication date 2026-11-03, and describe your changes. A version with substantive new functionality may be used commercially under the same conditions.
