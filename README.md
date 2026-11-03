@@ -2,6 +2,7 @@
 
 > 一套给 AI 伴侣用的「跨会话记忆」设计。原理公开；具体路径、配置、密钥不公开。
 > 写给两种人：养过 AI 伴侣的人（关心她会不会忘），和做 agent 的人（关心怎么让上下文接得上）。
+> 仓库：<https://github.com/dmmjniang-creator/river-memory>
 
 ---
 
