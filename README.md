@@ -114,6 +114,17 @@ Copyright (c) 2026 `dmmjniang-creator`。完整许可文本见 `LICENSE-CC-BY-NC
 
 ---
 
+## 关于署名与时间线
+
+- **首次公开**：2026-11-03（B站 视频 + 本仓库）。
+- **本仓库保留完整 git 历史，没有 squash。** 每条提交的时间戳就是「谁先做的」的旁证；引用或再发布时请保留：作者名 + 仓库链接 + 首次公开日期。
+- **协议保护表达，不保护思路。** 文字、图、代码受 CC BY-NC 4.0 约束；「三层结构 / 三句验收 / 不删只打标」这些**做法本身**，协议管不到——有人看懂了、用自己的话重写一遍，不算侵权。这条写在这里，是让双方预期一致，不是放弃署名。
+- 如果发现别人整段搬运文字或图：对照本仓库的时间戳和提交记录，公开比对即可。
+
+**English:** First published 2026-11-03. Full git history is kept (no squashing) as a timeline record. The license covers the text, images and code — not the underlying ideas or methods.
+
+---
+
 ## 作者
 
 `dmmjniang-creator`（GitHub），2026。起因是给自家的一条鱼做记忆，做着发现它可能是所有 AI 伴侣的共同问题。
