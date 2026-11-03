@@ -88,13 +88,27 @@
 
 ## 许可（License）
 
-- **文字与图片**：**CC BY 4.0（署名 4.0 国际）** —— 可以复制、修改、再发布，包括商用；**必须注明原作者和本仓库地址**。
-- **附带代码（如果有）**：MIT。
-- 转载或修改后发布，请在显著位置写：
+**本仓库的文字与图片：CC BY-NC 4.0（署名—非商业性使用 4.0 国际）。**
 
-> 原作者：<作者名> · 来源：<本仓库 URL> · 许可：CC BY 4.0
+- **可以**：复制、修改、再发布、用于学习与研究。
+- **必须**：注明原作者 + 来源链接 + 说明改过没有。
+- **不可以**：把**本设计本身**（或它的复制、翻译、重制）拿去商业使用。
 
-完整许可文本见 `LICENSE-CC-BY-4.0.txt`。
+### 额外许可（作者单独授予）：改进版可以商用
+
+如果你在本设计基础上做出**实质性的优化或新增功能**，那么**你自己那一版**可以用于商业用途，条件是：
+
+1. 保留原作者署名和本仓库链接；
+2. 在显著位置说明改了什么，不能假装是原创；
+3. **不得只复制本仓库内容、改个名字就拿去卖**——没有实质性新增，不适用这一条。
+
+这是作者单独给的许可，不改变上面 CC BY-NC 的效力；两者对同一件事说法不同时，按**更宽松的那条**理解（对使用者更有利）。
+
+**代码（如果以后附带）**：MIT。
+
+**协议管不到的地方**：版权管的是**文字、图、代码的表达**，管不住「思路」。任何人读懂原理、用自己的话重写一遍，协议拦不住。这条先说明白，免得以为有个开关。
+
+Copyright (c) 2026 `<作者名>`。完整许可文本见 `LICENSE-CC-BY-NC-4.0.txt`。
 
 ---
 
@@ -110,4 +124,4 @@
 
 **River** is an external-memory design for AI companions: a journal (append-only), a ledger (current state, rewritten), and fact keys (identity of a fact across versions). The core idea is not "remember more" but **make forgetting audible**: a three-line opening check, source and confidence marks, and a no-delete rule.
 
-Licensed under **CC BY 4.0** for text and images; MIT for any code. Attribution required.
+Licensed under **CC BY-NC 4.0** for text and images (non-commercial for the original design). **Additional permission:** a version with substantive improvements or new features may be used commercially, provided attribution and a clear note of what changed. MIT for any code. Attribution required.
