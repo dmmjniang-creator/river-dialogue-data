@@ -114,14 +114,27 @@ Copyright (c) 2026 `dmmjniang-creator`。完整许可文本见 `LICENSE-CC-BY-NC
 
 ---
 
-## 关于署名与时间线
+## 分享意图与署名
 
-- **首次公开**：2026-11-03（B站 视频 + 本仓库）。
-- **本仓库保留完整 git 历史，没有 squash。** 每条提交的时间戳就是「谁先做的」的旁证；引用或再发布时请保留：作者名 + 仓库链接 + 首次公开日期。
-- **协议保护表达，不保护思路。** 文字、图、代码受 CC BY-NC 4.0 约束；「三层结构 / 三句验收 / 不删只打标」这些**做法本身**，协议管不到——有人看懂了、用自己的话重写一遍，不算侵权。这条写在这里，是让双方预期一致，不是放弃署名。
+这套设计公开，是为了说清三件事：
+
+1. **它能实现**——在 **DeepSeek Harness** 这个平台、**DeepSeek-V4.1-Flash 1017** 这个模型、**推理等级 High** 这个配置下，跑通过。
+2. **欢迎社区接着做**——改、重写、换实现都行；做出改进欢迎回来提 issue / PR。这套东西本来就不该只长在一个人的机器上。
+3. **留一个记录**——这个时间（2026-11-03）、这个用户（`dmmjniang-creator`）先公开了这个思路。**不是要独占，是要让「谁先做的」有据可查。**
+
+| 复现最低配置 | 值 |
+| --- | --- |
+| 平台 | DeepSeek Harness |
+| 模型 | DeepSeek-V4.1-Flash 1017 |
+| 推理等级 | High |
+| 首次公开 | 2026-11-03 |
+| 仓库历史 | 完整保留，未 squash |
+
+- **协议保护表达，不保护思路。** 文字、图、代码受 CC BY-NC 4.0 约束；「三层结构 / 三句验收 / 不删只打标」这些**做法本身**，协议管不到——有人看懂了、用自己的话重写一遍，不算侵权。这条写在这里，是让双方预期一致。
+- 引用或再发布，请保留：作者名 + 仓库链接 + 首次公开日期。
 - 如果发现别人整段搬运文字或图：对照本仓库的时间戳和提交记录，公开比对即可。
 
-**English:** First published 2026-11-03. Full git history is kept (no squashing) as a timeline record. The license covers the text, images and code — not the underlying ideas or methods.
+**English:** First published 2026-11-03, on DeepSeek Harness with DeepSeek-V4.1-Flash 1017 (reasoning effort: High). Sharing the idea so others can reproduce and improve it; the claim is priority (who shared it, when) — not exclusivity. The license covers the text, images and code — not the underlying methods.
 
 ---
 
