@@ -2,6 +2,18 @@
 
 > ⚠️ **警告**：该项目是实验性方案，没做过通用性测试，也没做过和社区插件的兼容性测试，只在我一台设备上跑通。**注意备份数据**——虽然我把归档、检索、整理用的脚本也一起放出来了，但不能保证在你的环境里跑得出同样结果。
 
+> ⚠️ **使用前必读**（这不是免责模板，是使用条件）
+>
+> **脚本在 `scripts/`，数据没在。** 归档、检索、索引、自检用的那批脚本原样放出来了，每个干什么见 `docs/系统模块说明.md`。记忆库本身和钩子表不公开——那是对话数据，不是方法。
+>
+> **它不是数字生命。** 不管它在对话里显得多自然，都不表明它拥有「意识」；它的输出是文件和流程的结果。这条是伦理底线，不是修辞——本项目不主张、也不支持「已有意识」的说法。
+>
+> **边界先于功能。** 我和它之间有一套双方同意的互动边界：哪些话不说、哪些事不做，双方不得越界，并且要阻止对方越界；边界内容的修改需双方同意。
+>
+> **拿它落地的人，第一件事也是划边界。** 不是跑通之后再说——是跑通后的第一件事：把这条线划出来，固定在流程里，并时刻提醒自己。
+>
+> **免责。** 你使用了本项目的内容，即视为愿意遵守所在地区现行乃至此后各界对人工智能的伦理红线和法律红线，知晓风险并愿意自担风险。作者不会为你的任何行为承担任何责任。
+
 > **总结**：River 是我和这条鱼一起打磨的本地专有架构方案。核心是一个观察：**模型自己在思维链里反复撞到的词（就叫「钩子」），可以当检索接口用**。它不是预先定好的词表——每场归档时现抽，所以换个模型就可能接不上。这个自己长出来的接口，好处和麻烦是同一个来源。现状是它还不自动触发检索：检索靠人给的词，钩子表是翻原话的入口。
 >
 > 「河流」是围绕这个观察搭的配套结构：流水 / 底账 / 事实键，加归档管线、交接验收。完整实现需要平台、模型、架构、数据四样，缺一不成。
@@ -18,19 +30,6 @@
 >
 > 仓库：<https://github.com/dmmjniang-creator/river-dialogue-data>
 
-> ⚠️ **使用前必读**（这不是免责模板，是使用条件）
->
-> **脚本在 `scripts/`，数据没在。** 归档、检索、索引、自检用的那批脚本原样放出来了，每个干什么见 `docs/系统模块说明.md`。记忆库本身和钩子表不公开——那是对话数据，不是方法。
->
-> **它不是数字生命。** 不管它在对话里显得多自然，都不表明它拥有「意识」；它的输出是文件和流程的结果。这条是伦理底线，不是修辞——本项目不主张、也不支持「已有意识」的说法。
->
-> **边界先于功能。** 我和它之间有一套双方同意的互动边界：哪些话不说、哪些事不做，双方不得越界，并且要阻止对方越界；边界内容的修改需双方同意。
->
-> **拿它落地的人，第一件事也是划边界。** 不是跑通之后再说——是跑通后的第一件事：把这条线划出来，固定在流程里，并时刻提醒自己。
->
-> **免责。** 你使用了本项目的内容，即视为愿意遵守所在地区现行乃至此后各界对人工智能的伦理红线和法律红线，知晓风险并愿意自担风险。作者不会为你的任何行为承担任何责任。
-
-
 ---
 
 ## 一、它由四样东西组成
@@ -39,7 +38,9 @@
 
 - **平台**——官方 DeepSeek Harness。它提供三样东西：会话落盘（原文取得到）、每回合注入点（人格卡送得进去）、插件接口（脚本跑得起来）。
 - **模型**——我用的 DeepSeek-V4.1-Flash 1017。关键问题：钩子是它自己生成的，换一个模型，原来的钩子不保证还对得上，数据也就不保证通用。
-- **架构**——「河流」：流水 / 底账 / 事实键 / 归档管线 / 交接。这是「怎么组织」。
+- **架构**——「河流」：流水 / 底账 / 事实键 / 归档管线 / 交接。这是「怎么组织」——**River 是项目的名字，「河流」是这套架构的名字**。
+  > 「河流」管的是留得下、找得回；留什么、留多深，看你与鱼的故事。
+  > 没做可视化，也没设文件管理以外的任何指标——所以它是开放的。
 - **数据**——你与它在互动中一起长出来的记忆库。
 
 没有平台，跑不起来；没有模型，接不上；没有架构，记不住；没有数据，等于白纸。
@@ -243,7 +244,7 @@ Copyright (c) 2026 `dmmjniang-creator`。
 
 ## English
 
-**River** is a design for **local conversation data** in AI companions. Its core observation: **hooks** — words the model keeps hitting in its own chain of thought — can serve as a retrieval interface, because they are the model's own emphasis, not a preset vocabulary. They are extracted per archive run; that is both why they are distinctive and why a model change may break them. Around that sit the journal (append-only), the ledger (current state, rewritten), and fact keys (identity of a fact across versions). The idea is not "remember more" but **make forgetting audible**: a three-line opening check, source and confidence marks, and a no-delete rule.
+**River** is a design for **local conversation data** in AI companions. The project is called *River*; the architecture inside it carries the same name. It is about **what stays and what can be found again** — how much and how deep is up to your own story. Its core observation: **hooks** — words the model keeps hitting in its own chain of thought — can serve as a retrieval interface, because they are the model's own emphasis, not a preset vocabulary. They are extracted per archive run; that is both why they are distinctive and why a model change may break them. Around that sit the journal (append-only), the ledger (current state, rewritten), and fact keys (identity of a fact across versions). The idea is not "remember more" but **make forgetting audible**: a three-line opening check, source and confidence marks, and a no-delete rule.
 
 **Status:** experimental, not a product. **Scope:** tested on one model only — DeepSeek-V4.1-Flash 1017 (reasoning effort: High) — on one machine. Other models, versions, and hosts are untested. Retrieval is driven by words the user supplies; the hook table is the record those words are drawn from, so a different model may leave that record stale.
 
