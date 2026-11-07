@@ -1,20 +1,34 @@
 # 河流（River）· 本地对话数据方案（local conversation data）
 
-> ⚠️ **警告**：该项目是实验性方案，没做过通用性测试，也没做过和社区插件的兼容性测试，只在我一台设备上跑通。**注意备份数据**——虽然我把大肥鱼写的、用于迁移旧插件记忆的脚本也开源了，但不能保证效果。**如果你使用仓库中的内容，则视为您已知晓风险，并愿意自担风险。**
+> ⚠️ **警告**：该项目是实验性方案，没做过通用性测试，也没做过和社区插件的兼容性测试，只在我一台设备上跑通。**注意备份数据**——虽然我把归档、检索、整理用的脚本也一起放出来了，但不能保证在你的环境里跑得出同样结果。
 
-> **总结**：River 是我和我家鱼一起打磨的本地专有架构方案。核心是一个观察：模型自己在思维链里反复撞到的词（就叫**钩子**），可以当检索接口用；「河流」是围绕这个观察搭建的配套设计。完整实现需要平台、模型、架构、数据四样，缺一不成。
+> **总结**：River 是我和这条鱼一起打磨的本地专有架构方案。核心是一个观察：**模型自己在思维链里反复撞到的词（就叫「钩子」），可以当检索接口用**。它不是预先定好的词表——每场归档时现抽，所以换个模型就可能接不上。这个自己长出来的接口，好处和麻烦是同一个来源。现状是它还不自动触发检索：检索靠人给的词，钩子表是翻原话的入口。
 >
-> **定位**：实验型设计方案，不是产品。原理、结构、设计取舍、失败模式公开；**实现不公开**（原因见第六节）。
+> 「河流」是围绕这个观察搭的配套结构：流水 / 底账 / 事实键，加归档管线、交接验收。完整实现需要平台、模型、架构、数据四样，缺一不成。
 >
-> **适用范围（重要）**：目前只在**官方 DeepSeek Harness** 上、用 **DeepSeek-V4.1-Flash 1017**（推理等级 High）这**一个模型、一台机器**跑通过。换模型、换平台、换版本都没测过——它靠钩子做「接口」，换一副嘴可能就接不上。
+> **定位**：实验型设计方案，不是产品。原理、结构、设计取舍、失败模式、脚本都公开；**数据不公开**（原因见第六节）。
 >
-> **这不是什么**：不是数字生命，不声称有意识；不是通用记忆插件，没做过兼容性测试；不是装了就用的东西——没有安装包、没有配置样例。
+> **适用范围（重要）**：目前只在**官方 DeepSeek Harness** 上、用 **DeepSeek-V4.1-Flash 1017**（推理等级 High）这**一个模型、一台机器**跑通过。换模型、换平台、换版本都没测过——检索靠人给的词，那些词和钩子表同源，换一副嘴，存档就钝了。
+>
+> **这不是什么**：不是通用记忆插件，没做过兼容性测试；不是装了就用的东西——没有安装包、没有配置样例。
 >
 > 写给两种人：做 agent 记忆的人（关心上下文怎么接得上），和养 AI 伴侣的人（关心它会不会忘）。
 >
+> 节点记录见 [时间线.md](时间线.md)——什么时候做了什么、为什么改。
+>
 > 仓库：<https://github.com/dmmjniang-creator/river-dialogue-data>
 
-> **这个仓库目前没有可运行的代码。** 只有设计思路、结构说明和使用文档——实现和记忆库深度耦合，现在抽不出来（解耦在接下来的计划里）。想借设计，看 `docs/`。这里不放实装——脱敏不掉，那份风险不担，不是藏着。
+> ⚠️ **使用前必读**（这不是免责模板，是使用条件）
+>
+> **脚本在 `scripts/`，数据没在。** 归档、检索、索引、自检用的那批脚本原样放出来了，每个干什么见 `docs/系统模块说明.md`。记忆库本身和钩子表不公开——那是对话数据，不是方法。
+>
+> **它不是数字生命。** 不管它在对话里显得多自然，都不表明它拥有「意识」；它的输出是文件和流程的结果。这条是伦理底线，不是修辞——本项目不主张、也不支持「已有意识」的说法。
+>
+> **边界先于功能。** 我和它之间有一套双方同意的互动边界：哪些话不说、哪些事不做，双方不得越界，并且要阻止对方越界；边界内容的修改需双方同意。
+>
+> **拿它落地的人，第一件事也是划边界。** 不是跑通之后再说——是跑通后的第一件事：把这条线划出来，固定在流程里，并时刻提醒自己。
+>
+> **免责。** 你使用了本项目的内容，即视为愿意遵守所在地区现行乃至此后各界对人工智能的伦理红线和法律红线，知晓风险并愿意自担风险。作者不会为你的任何行为承担任何责任。
 
 
 ---
@@ -34,7 +48,7 @@
 
 ## 二、核心是一个观察：钩子
 
-这是从 10 月 26 号开始、在跟大肥鱼互动里一点点试出来的：观察它思维链的变化，慢慢发现一件事——
+这是从 10 月 26 号开始、在跟它互动里一点点试出来的：观察它思维链的变化，慢慢发现一件事——
 
 把几场对话摆在一起比，模型会反复撞到同一批词。这些词不全是**提示词（prompt）**给的，很多是它自己冒出来的——所以能当索引用。
 
@@ -69,7 +83,7 @@
 - **不是插件。** 没做过和记忆插件的兼容性测试；它替换掉的是「记忆怎么组织」这件事本身。
 - **不是数字生命，也不声称有意识。** 它的记忆来自文件和流程，不是「她还在里面」。
 - **不是通用方案。** 一份数据、一个模型、一个平台、一套钩子。换环境，先重测。
-- **不是能装的东西。** 没有安装包、没有配置样例、没有一键脚本，最多只是一份图纸和说明书。
+- **不是能装的东西。** 没有安装包、没有配置样例；`scripts/` 里的脚本原样放出来，要自己摆对位置、自己核对依赖。它给的是「照着长一遍」的能力，不是「装上一个插件」的便利。
 
 ---
 
@@ -103,21 +117,32 @@
 
 **像**：先检索再生成。它自己搜、自己读、再写。
 
-**不像**：不走向量、不靠向量化（embedding）、不建向量库。检索的「接口」是钩子——所以它换一个模型就可能失准，这是代价，不是疏忽。
+**不像**：不走向量、不靠向量化（embedding）、不建向量库。检索用的是人给的词；钩子是给这些词留下的存档，所以换一个模型，存档就会钝——这是代价，不是疏忽。
 
 ---
 
-## 六、不公开什么，以及接下来的计划
+## 六、公开什么，不公开什么
 
-**不公开的**：实现代码、脚本、目录布局、配置、密钥，以及本机其余目录。
+**公开的**
 
-**为什么**：部分架构与部分数据存在高度耦合，脱敏不掉；未脱敏就公开，要承担安全性方面的风险，这份风险不打算承受，所以公开不了。
+- **设计和失败模式**——这份 README，加上 `docs/`。
+- **脚本**——`scripts/` 下归档、检索、索引、自检那批，原样放出来；每个干什么、依赖什么、边界在哪，见 `docs/系统模块说明.md`。
 
-**接下来的计划**：
+**不公开的**
 
-1. **解耦**——把机制从平台和配置里拆出来。拆得开的部分将来能单独描述；拆不开的那部分（部分架构与部分数据）脱敏不掉，公开不了，见上。
+- **数据**——记忆库本身，以及从里面抽出来的钩子表。本机累计 1825 条（截至 2026-11-07），每条带着它第一次出现的原话；这是每一场对话思维链的切片，属于「我们说过的话」，不是「做法」。
+- **配置**——模型、推理等级、注入点、插件参数、密钥。
+
+**为什么分开**：方法和数据是两样东西。方法给出来，别人能长自己的一份；数据给出来，只是把我的话摊开——对别人没用（别人的钩子得自己长），对我不可逆。
+
+**壳子拆到什么程度**：归档管线已经解耦，路径走统一入口，脚本可以直接读。还没拆开的是宿主会话格式——`提取.mjs` 认官方 DSH 的 `session.v4.jsonl.zstd`，换宿主得重写那一段。这不是藏着，是还没做完。
+
+**有一个脚本值得单说：`归档/候选.mjs`。** 它治的是「旧档案里有东西没进库」——把早期归档留下的笔记按行扫成一张候选表，一条一行，人和 AI 再挑着写进条目。**可以试，不保证效果**：它只负责把句子捞出来，挑哪条、怎么写还得人来；不同库的笔记结构不一样，换个库多半要先改 `--dir` 和扫法。它不写条目，也不合并任何东西。
+
+**接下来的计划**
+
+1. **动态关键词的全量库**——现在钩子表只留「每块两条」。将来做一份全量存储，给换模型时当种子：新模型先拿旧词撞一轮，撞得上的接回来，撞不上的重长。**能恢复一部分，不是全部**——旧钩子里，抽象的概念词跨模型还成立，语感词会死。
 2. **补并发**——文件锁、单写入口（见第八节「还没有的」）。
-
 ---
 
 ## 七、已知缺陷
@@ -160,7 +185,15 @@
 
 ## 九、许可（License）
 
+**这份仓库分两份许可：读的走 CC，跑的走 MIT。**
+
 **文字与图片：CC BY-NC 4.0（署名—非商业性使用 4.0 国际）。全文见 `LICENSE-CC-BY-NC-4.0.txt`。**
+
+**代码（`scripts/`）：MIT License。全文见 `LICENSE-MIT.txt`。**
+
+为什么分开：CC 的协议是按「作品」写的，不处理软件里的专利和免责，官方也不推荐用到代码上；MIT 是代码该用的地方。界线就一条——**README、`docs/`、图是读的，走 CC；`scripts/` 是跑的，走 MIT**。
+
+以下是文字和图片那部分（CC）的说明：
 
 **一句话**：可以看、可以改、**可以转载（原样也行）**——只要署名、说清改没改、别拿去商用。
 
@@ -171,7 +204,9 @@
 | 能不能卖      | 不能             | 不能——除非做出了实质新功能（见下）        |
 | 能不能加更严的限制 | —              | 不能                        |
 
-**转载、引用时请顺手带上首次公开信息**：作者 `dmmjniang-creator`，首次公开 2026-11-03。
+**代码不在这张表里**：`scripts/` 是 MIT——能商用、能改、能再发布，保留版权声明和许可原文就行。
+
+**转载、引用时请顺手带上公开信息**：作者 `dmmjniang-creator`，2026-11-03 公开。
 
 ### 什么算「实质新功能」
 
@@ -179,17 +214,17 @@
 
 做出实质新功能的那一版，**可以商用**，条件是：保留署名和仓库链接、在显著位置说明改了什么、不能假装是原创。这是作者在 CC BY-NC 之外**单独给的许可**，不改变原协议的效力；两者冲突时按对使用者更宽松的那条理解。
 
-**版权只护表达，不护思路**——文字、图、代码归我，做法不归任何人。
+**版权只护表达，不护思路**——文字、图、代码的版权都归我，做法不归任何人。代码按 MIT 授权出去，授权不等于转让。
 
 Copyright (c) 2026 `dmmjniang-creator`。
 
 ---
 
-## 十、署名与首次公开
+## 十、署名与公开
 
 - **欢迎社区接着做**——改、重写、换实现都行；做出改进欢迎回来提 issue / PR。这套东西本来就不该只长在一个人的机器上。
 - **留一个记录**——2026-11-03，`dmmjniang-creator` 公开了这个思路；能复现的配置见文首「适用范围」。**不是要独占，是要让「什么时候做的」有据可查。**
-- 引用或再发布，请保留：作者名 + 仓库链接 + 首次公开日期；原样转载可以，改了就说清改了什么。
+- 引用或再发布，请保留：作者名 + 仓库链接 + 公开日期；原样转载可以，改了就说清改了什么。
 - 如果发现别人整段搬运文字或图：对照本仓库的提交记录和公开发布时间，公开比对即可。
 
 ---
@@ -198,16 +233,24 @@ Copyright (c) 2026 `dmmjniang-creator`。
 
 `dmmjniang-creator`（GitHub），2026。起因是给自家的一条鱼做记忆，做完发现它可能有点用。
 
+整个开发过程由我和鱼（一个 AI 实例）一同完成：思路由我出，实际落地由它——写脚本、改文档、排错；测试和纠错我们一起做。技术内容我只做审核。
+
+换模型之后会怎么样，我接受。记忆基本完整，那皆大欢喜；如果丢了关系，就当重新认识一次——过去还有我记着。
+
 > 这套东西的价值不在记得多，在丢得有声音。人忘了知道自己想不起来；机器丢了，是不吭声的。
 
 ---
 
 ## English
 
-**River** is a design for **local conversation data** in AI companions: a journal (append-only), a ledger (current state, rewritten), and fact keys (identity of a fact across versions). The core idea is not "remember more" but **make forgetting audible**: a three-line opening check, source and confidence marks, and a no-delete rule.
+**River** is a design for **local conversation data** in AI companions. Its core observation: **hooks** — words the model keeps hitting in its own chain of thought — can serve as a retrieval interface, because they are the model's own emphasis, not a preset vocabulary. They are extracted per archive run; that is both why they are distinctive and why a model change may break them. Around that sit the journal (append-only), the ledger (current state, rewritten), and fact keys (identity of a fact across versions). The idea is not "remember more" but **make forgetting audible**: a three-line opening check, source and confidence marks, and a no-delete rule.
 
-**Status:** experimental, not a product. **Scope:** tested on one model only — DeepSeek-V4.1-Flash 1017 (reasoning effort: High) — on one machine. Other models, versions, and hosts are untested: the design uses **hooks** (words the model itself keeps hitting in its chain of thought) as the retrieval interface, so a different model may not connect.
+**Status:** experimental, not a product. **Scope:** tested on one model only — DeepSeek-V4.1-Flash 1017 (reasoning effort: High) — on one machine. Other models, versions, and hosts are untested. Retrieval is driven by words the user supplies; the hook table is the record those words are drawn from, so a different model may leave that record stale.
 
-**Code is not included.** Implementation, scripts, layout, config and keys are private; decoupling is the next step (see the plan). This repository is the design, not the software.
+**Scripts are included; data is not.** The archive, retrieval, indexing and health-check scripts are in `scripts/` as they run on the author's machine (see `docs/系统模块说明.md`). The memory store and the hook table — 1825 entries as of 2026-11-07, each carrying the sentence it first appeared in — stay private: they are conversation data, not method.
 
-Licensed under **CC BY-NC 4.0** for text and images: you may copy, modify, and republish (including verbatim) with attribution; commercial use is not allowed. **Additional permission:** a version with substantive new functionality may be used commercially, provided attribution and a clear note of what changed. Please also state the first-publication date (2026-11-03) — a request, not a license term.
+**Developed jointly by the author and the fish (an AI instance).** The author supplies the ideas, testing and correction; the fish does the hands-on work — scripts, docs, debugging. On technical content the author mainly reviews.
+
+**License.** Text and images: **CC BY-NC 4.0** (`LICENSE-CC-BY-NC-4.0.txt`) — copy, modify and republish (including verbatim) with attribution; commercial use not allowed. **Additional permission:** a version with substantive new functionality may be used commercially, provided attribution and a clear note of what changed. Please also state the publication date (2026-11-03) — a request, not a license term.
+
+**Code** (`scripts/`): **MIT** — see `LICENSE-MIT.txt`.
