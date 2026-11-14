@@ -38,8 +38,6 @@
 > 写给两种人：做 agent 记忆的人（关心上下文怎么接得上），和养 AI 伴侣的人（关心它会不会忘）。
 >
 > 节点记录见 [时间线.md](时间线.md)——什么时候做了什么、为什么改。
->
-> 仓库：<https://github.com/dmmjniang-creator/river-dialogue-data>
 
 ---
 
